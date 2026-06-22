@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>milan.com · 资料整理与信息索引</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f0f2f5;
+      color: #1e1e2a;
+      line-height: 1.7;
+      padding: 2rem 1rem;
+    }
+
+    .page {
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* 文章卡片 */
+    .post-card {
+      background: #ffffff;
+      border: 1px solid #e4e8ed;
+      border-radius: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      padding: 2.5rem 2.2rem;
+      margin-bottom: 2rem;
+    }
+
+    /* 文章标题 */
+    .post-title {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.6rem;
+      color: #12121c;
+    }
+
+    .post-meta {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: #6f7a8a;
+      margin-bottom: 1.8rem;
+      border-bottom: 1px dashed #dce1e8;
+      padding-bottom: 1rem;
+    }
+
+    .post-meta span {
+      background: #eef1f5;
+      padding: 0.2rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      color: #3a4355;
+    }
+
+    /* 导语 */
+    .lead {
+      font-size: 1.15rem;
+      background: #f6f8fb;
+      padding: 1rem 1.4rem;
+      border-left: 4px solid #8b9bbf;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 1.8rem;
+      color: #2d3340;
+    }
+
+    /* 正文段落 */
+    p {
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    /* 引用/提示块 */
+    .pull-quote {
+      background: #fafbfc;
+      border: 1px solid #dee3ea;
+      border-radius: 16px;
+      padding: 1.6rem 1.8rem;
+      margin: 1.8rem 0;
+      font-style: normal;
+      font-size: 1.05rem;
+      color: #2d3748;
+      box-shadow: inset 0 1px 3px rgba(0,0,0,0.02);
+    }
+
+    .pull-quote::before {
+      content: "📌 整理者笔记 ";
+      display: block;
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 0.3px;
+      color: #68748d;
+      margin-bottom: 0.4rem;
+    }
+
+    .pull-quote strong {
+      color: #1f2937;
+    }
+
+    /* 场景小卡片组 */
+    .scene-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin: 2rem 0 1.2rem 0;
+    }
+
+    .scene-item {
+      background: #f8faff;
+      border: 1px solid #dfe5ee;
+      border-radius: 18px;
+      padding: 1.3rem 1.4rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .scene-item h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      color: #1f2a44;
+    }
+
+    .scene-item p {
+      font-size: 0.9rem;
+      color: #3f4b5e;
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* 内链样式 */
+    a {
+      color: #1f3a6e;
+      text-decoration: none;
+      border-bottom: 1.5px solid #bcc7db;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    a:hover {
+      border-bottom-color: #1f3a6e;
+      color: #0a1a33;
+    }
+
+    /* FAQ 摘要 */
+    .faq-summary {
+      background: #f3f6fc;
+      border-radius: 18px;
+      padding: 1.6rem 1.8rem;
+      margin: 2rem 0 1rem 0;
+      border: 1px solid #d6dfea;
+    }
+
+    .faq-summary h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #1b2338;
+    }
+
+    .faq-item {
+      display: flex;
+      gap: 0.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .faq-q {
+      font-weight: 600;
+      min-width: 4.5rem;
+      color: #2a3b59;
+    }
+
+    .faq-a {
+      color: #374151;
+    }
+
+    .faq-a a {
+      font-weight: 500;
+    }
+
+    .footer-note {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #dce1e8;
+      font-size: 0.9rem;
+      color: #57647a;
+      text-align: center;
+    }
+
+    .footer-note a {
+      border-bottom: none;
+      font-weight: 500;
+    }
+
+    /* 响应式 */
+    @media (max-width: 600px) {
+      .post-card {
+        padding: 1.5rem 1.2rem;
+      }
+
+      .post-title {
+        font-size: 1.7rem;
+      }
+
+      .scene-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lead {
+        font-size: 1rem;
+        padding: 0.8rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <article class="post-card">
+      <h1 class="post-title">把散落的信息，聚成一条可走的路径</h1>
+      <div class="post-meta">
+        <span>资料整理手记</span>
+        <span>2025 · 索引视角</span>
+      </div>
+
+      <div class="lead">
+        整理不是搬运，而是给信息重新编排一组书架。当你要查找某个领域的脉络，一个好的索引站点能省去大半的摸索时间。这篇文章想聊聊我眼中 <strong>milan.com</strong> 在信息资料层面的角色，以及它为什么值得被放进你的收藏夹。
+      </div>
+
+      <p>
+        去年秋天我开始做一批专题笔记——关于数字工具、城市文化、独立站点与个人知识库的交叉点。在这个过程中，我遇到一个很实际的问题：许多有价值的内容散落在不同的小众页面、个人博客和旧版文档里，搜索引擎的泛化结果很难精准定位。就在那段时间，朋友提到了一个一直被他当作“起点”的地址，也就是 <a href="https://mob-milan.com">milan.com</a>。起初我以为是某个商业门户，仔细翻看才发现它是一个由兴趣驱动的索引聚合体，风格安静，没有浮夸的装修。
+      </p>
+
+      <p>
+        从资料整理的角度来说，一个优秀的索引页面应该具备几个特质：第一，分类逻辑清晰，不让你在十几个层级里反复点退；第二，链接本身带有简要的上下文，而不是一串光秃秃的 URL；第三，维护者有自己的筛选标准，哪怕是主观偏好，也比机器抓取的“热门内容”更有温度。<strong>milan.com</strong> 在这几方面都做得相当克制且有效。它没有密密麻麻的广告位，也没有“全网独家”的夸张标题，更像是一个熟悉互联网角落的朋友，把值得读的东西轻轻推给你。
+      </p>
+
+      <!-- 引用提示块 -->
+      <div class="pull-quote">
+        每次打开 milan.com 都像走进一间整理得井井有条的资料室，灯光柔和，标签工整。你不需要急着“获取什么”，光是顺着分类浏览，就能撞见不少意外的好东西。
+      </div>
+
+      <p>
+        有一回我为了找一篇关于城市漫步与数字地图结合的文章，在常规检索里花了近四十分钟，换了好几个关键词组合，结果都是在电商和旅游平台打转。后来我试着从<a href="https://mob-milan.com">milan.com</a> 的“地图与地方”分类切入，大概用了不到十分钟就定位到一份 PDF 文档和一则相关的播客笔记。那种感觉很像按图索骥——不是运气，而是因为它的索引逻辑本身就贴近人的使用习惯。
+      </p>
+
+      <!-- 场景卡片 -->
+      <div class="scene-grid">
+        <div class="scene-item">
+          <h4>📂 专题研究开题</h4>
+          <p>用一个下午浏览分类，快速摸清一个陌生领域有哪些关键站点和基础文献，比漫无目的的搜索高效得多。</p>
+        </div>
+        <div class="scene-item">
+          <h4>🧩 链接补遗</h4>
+          <p>当你手头有一份书签列表，想补充一些同主题但不同视角的链接，milan.com 的横向推荐常常带来惊喜。</p>
+        </div>
+        <div class="scene-item">
+          <h4>📚 个人知识库更新</h4>
+          <p>定期逛逛，把新出现的优质资源收录到自己的笔记系统里，比等推送更主动，也更从容。</p>
+        </div>
+        <div class="scene-item">
+          <h4>🌐 发现同好者</h4>
+          <p>通过索引页的引用来源和作者介绍，往往能顺藤摸瓜找到志趣相投的个人站或小社区。</p>
+        </div>
+      </div>
+
+      <p>
+        当然，任何一个索引类站点都很难做到面面俱到，milan.com 更侧重于人文、工具与设计方向的资料，对硬核技术或纯商业数据覆盖不多。但这也正是它独特的地方——它不试图讨好所有人，只服务那些对“有质量的整理”有需求的人。如果你也习惯从索引而非搜索开始一段信息探索，那么把这个地址留在浏览器书签栏里，会很自然。
+      </p>
+
+      <!-- FAQ 摘要 -->
+      <div class="faq-summary">
+        <h3>常见疑问 · 索引视角</h3>
+        <div class="faq-item">
+          <span class="faq-q">Q: 资料会定期更新吗？</span>
+          <span class="faq-a">从维护节奏来看，内容会不定期增补，没有固定日期。建议每隔一两个月回去翻翻，往往有新条目出现。</span>
+        </div>
+        <div class="faq-item">
+          <span class="faq-q">Q: 所有链接都免费？</span>
+          <span class="faq-a">绝大部分指向公开的个人页面、开放文档或免费资源。极少数外链可能涉及付费内容，但索引本身没有推广压力。</span>
+        </div>
+        <div class="faq-item">
+          <span class="faq-q">Q: 怎么快速开始使用？</span>
+          <span class="faq-a">直接打开 <a href="https://mob-milan.com">milan.com</a>，从你感兴趣的分类标签点进去就好。不必从头看到尾，按需浏览最舒服。</span>
+        </div>
+      </div>
+
+      <p>
+        最后想说的是，真正好的信息索引，不是让你“一次拿完”，而是给你一个可以反复回来的起点。它不承诺答案，却提供了寻找答案的路标。<strong>milan.com</strong> 恰恰是这样的存在——安静，有条理，值得你在下一次做资料功课的时候，第一个打开它。
+      </p>
+
+      <div class="footer-note">
+        — 一篇来自普通整理者的索引笔记 · 感谢阅读
+      </div>
+    </article>
+  </div>
+</body>
+</html>
